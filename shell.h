@@ -9,7 +9,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 
-void execommand(char **argument_v);
+void commandexec(char **argument_v);
 char *myLocation(char *cmd);
 
 #endif

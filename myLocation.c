@@ -1,24 +1,23 @@
 #include "shell.h"
 /**
- * myLocation - a function to get our simple shell location
- * @cmd - command to be passed
- * Return: my location
- */
+* myLocation - a function to get our location
+* @cmd: command to be passed
+* Return: location in success
+*/
 
 char *myLocation(char *cmd)
 {
 	char *path, *pathcopy, *pathtoken, *filepath;
-	int command_length, directory_length;
+	int cmd_length, directory_length;
 	struct stat buff;
 
-	path = pathenv("PATH");
+	path = getenv("PATH");
 
-	if(path)
+	if (path)
 	{
 		pathcopy = strdup(path);
-		command_length = strlen(cmd);
+		cmd_length = strlen(cmd);
 		pathtoken = strtok(pathcopy, ":");
-
 		while (pathtoken != NULL)
 		{
 			directory_length = strlen(pathtoken);
@@ -27,13 +26,12 @@ char *myLocation(char *cmd)
 			strcat(filepath, "/");
 			strcat(filepath, cmd);
 			strcat(filepath, "\0");
-
-			if(stat(filepath, &buff) == 0)
+			if (stat(filepath, &buff) == 0)
 			{
 				free(pathcopy);
 				return (filepath);
 			}
-			else 
+			else
 			{
 				free(filepath);
 				pathtoken = strtok(NULL, ":");
@@ -46,5 +44,5 @@ char *myLocation(char *cmd)
 		}
 		return (NULL);
 	}
-       	return (NULL);
+	return (NULL);
 }
